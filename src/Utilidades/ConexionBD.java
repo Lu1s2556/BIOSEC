@@ -1,4 +1,4 @@
-package util;
+package utilidades;
 import java.sql.*;
 
 public class ConexionBD {

@@ -4,6 +4,8 @@
  */
 package Graficas;
 
+import javax.swing.event.DocumentListener;
+
 /**
  *
  * @author Burrx
@@ -15,6 +17,34 @@ public class Presupuesto extends javax.swing.JFrame {
      */
     public Presupuesto() {
         initComponents();
+        
+        TXT_BUSCADOR.getDocument().addDocumentListener(new DocumentListener() {
+        public void insertUpdate(DocumentEvent e) { mostrarSugerencias(); }
+        public void removeUpdate(DocumentEvent e) { mostrarSugerencias(); }
+        public void changedUpdate(DocumentEvent e) {}
+
+        private void mostrarSugerencias() {
+            jPopupMenuSugerencias.removeAll();
+            String texto = TXT_BUSCADOR.getText().trim();
+            if (texto.isEmpty()) return;
+
+            presupuestoDAO dao = new presupuestoDAO();
+            List<EXAMENES> lista = dao.BuscarPrueba(texto);
+
+            for (EXAMENES ex : lista) {
+                JMenuItem item = new JMenuItem(ex.getNombre());
+                item.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // Estilo moderno
+                item.addActionListener(ev -> TXT_BUSCADOR.setText(ex.getNombre()));
+                jPopupMenuSugerencias.add(item);
+            }
+
+            if (jPopupMenuSugerencias.getComponentCount() > 0) {
+                jPopupMenuSugerencias.show(TXT_BUSCADOR, 0, TXT_BUSCADOR.getHeight());
+            } else {
+                jPopupMenuSugerencias.setVisible(false);
+            }
+            }
+        });
     }
 
     /**
@@ -26,7 +56,7 @@ public class Presupuesto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
+        POPUP = new javax.swing.JPopupMenu();
         Panel_principal = new javax.swing.JPanel();
         TXT_BUSCADOR = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -108,10 +138,10 @@ public class Presupuesto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPopupMenu POPUP;
     private javax.swing.JPanel Panel_principal;
     private javax.swing.JTextField TXT_BUSCADOR;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
