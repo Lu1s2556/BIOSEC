@@ -1,48 +1,56 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Graficas;
 
+import DAO.presupuestoDAO;
+import Modelo.EXAMENES;
+import java.awt.Font;
+import java.util.List;
+import javax.swing.JMenuItem;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-/**
- *
- * @author Burrx
- */
+
 public class Presupuesto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Presupuesto
-     */
     public Presupuesto() {
         initComponents();
+        POPUP.setFocusable(false);
+
         
         TXT_BUSCADOR.getDocument().addDocumentListener(new DocumentListener() {
-        public void insertUpdate(DocumentEvent e) { mostrarSugerencias(); }
-        public void removeUpdate(DocumentEvent e) { mostrarSugerencias(); }
-        public void changedUpdate(DocumentEvent e) {}
+            public void insertUpdate(DocumentEvent e) { mostrarSugerencias(); }
+            public void removeUpdate(DocumentEvent e) { mostrarSugerencias(); }
+            public void changedUpdate(DocumentEvent e) {}
 
-        private void mostrarSugerencias() {
-            jPopupMenuSugerencias.removeAll();
-            String texto = TXT_BUSCADOR.getText().trim();
-            if (texto.isEmpty()) return;
+            private void mostrarSugerencias() {
+                SwingUtilities.invokeLater(()->{;
+                    POPUP.setVisible(false);
+                    POPUP.removeAll();
+                   
+                    String texto = TXT_BUSCADOR.getText().trim();
+                    if (texto.isEmpty()) return;
 
-            presupuestoDAO dao = new presupuestoDAO();
-            List<EXAMENES> lista = dao.BuscarPrueba(texto);
+                    presupuestoDAO dao = new presupuestoDAO();
+                    List<EXAMENES> lista = dao.BuscarPrueba(texto);
 
-            for (EXAMENES ex : lista) {
-                JMenuItem item = new JMenuItem(ex.getNombre());
-                item.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // Estilo moderno
-                item.addActionListener(ev -> TXT_BUSCADOR.setText(ex.getNombre()));
-                jPopupMenuSugerencias.add(item);
-            }
+                    for (EXAMENES ex : lista) {
+                        JMenuItem item = new JMenuItem(ex.getNOMBRE());
+                        item.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // Estilo moderno
 
-            if (jPopupMenuSugerencias.getComponentCount() > 0) {
-                jPopupMenuSugerencias.show(TXT_BUSCADOR, 0, TXT_BUSCADOR.getHeight());
-            } else {
-                jPopupMenuSugerencias.setVisible(false);
-            }
+                        item.addActionListener(ev -> {TXT_BUSCADOR.setText(ex.getNOMBRE());
+                        POPUP.setVisible(false); // 👈 Esto lo oculta
+                        TXT_BUSCADOR.requestFocusInWindow();});
+                        
+                        POPUP.add(item);
+                    }
+
+                    if (POPUP.getComponentCount() > 0) {
+                        POPUP.show(TXT_BUSCADOR, 0, TXT_BUSCADOR.getHeight());
+                    } else {
+                        POPUP.setVisible(false);
+                    }
+                });
             }
         });
     }
@@ -63,6 +71,7 @@ public class Presupuesto extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(800, 500));
 
         Panel_principal.setBackground(new java.awt.Color(230, 235, 255));
         Panel_principal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -88,11 +97,11 @@ public class Presupuesto extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel_principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Panel_principal, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel_principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Panel_principal, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
 
         pack();
