@@ -1,0 +1,56 @@
+.root{
+    -fx-font-family: "DM Sans", "Segoe UI", sans-serif;
+    -fx-Background-colour: #f8fafc;
+}
+
+.menu-btn{
+    -fx-Background-colour: transparent;
+    -fx-text-fill : #94a3b8;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER-LEFT;
+}
+
+.menu-btn:hover {
+    -fx-text-fill: white;
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-background-radius: 8px;
+}
+/* Botón activo (ej: Dashboard) */
+.menu-btn-active {
+    -fx-background-color: #0ea5e9; /* Sky Blue */
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+}
+
+/* Tarjetas Blancas (Cards) */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    /* Sombra suave optimizada */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 15, 0, 0, 5);
+    -fx-padding: 20;
+}
+
+/* Buscador Redondo */
+.search-bar {
+    -fx-background-radius: 30px;
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 30px;
+    -fx-padding: 10 20;
+}
+
+/* Gráfico de Líneas (Estilo Moderno) */
+.chart-series-line {
+    -fx-stroke: #0ea5e9;
+    -fx-stroke-width: 3px;
+}
+.chart-line-symbol {
+    -fx-background-color: transparent, transparent; /* Oculta los puntos */
+}
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+.axis {
+    -fx-tick-label-fill: #94a3b8;
+}
