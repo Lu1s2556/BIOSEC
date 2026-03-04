@@ -15,12 +15,18 @@ import java.util.List;
 
 public class ClinicalLabController {
 
-    @FXML private TextField searchField;
-    @FXML private GridPane testsGrid;
-    @FXML private TextField patientField;
-    @FXML private Label subtotalLabel;
-    @FXML private Label totalAmount;
-    @FXML private ScrollPane summaryScroll;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private GridPane testsGrid;
+    @FXML
+    private TextField patientField;
+    @FXML
+    private Label subtotalLabel;
+    @FXML
+    private Label totalAmount;
+    @FXML
+    private ScrollPane summaryScroll;
 
     private double subtotal = 0.0;
 
@@ -31,8 +37,10 @@ public class ClinicalLabController {
             summaryScroll.setContent(v);
         }
 
-        if (testsGrid != null && testsGrid.getChildren().isEmpty()) {
-            // Query conceptos from MySQL (XAMPP). Uses default localhost/root with empty password.
+        if (testsGrid != null) {
+            testsGrid.getChildren().clear();
+            // Query conceptos from MySQL (XAMPP). Uses default localhost/root with empty
+            // password.
             List<Concept> concepts = MySQLDB.getConcepts();
             if (concepts.isEmpty()) {
                 // fallback sample
@@ -41,6 +49,8 @@ public class ClinicalLabController {
 
             int col = 0, row = 0;
             for (Concept c : concepts) {
+                System.out.println("Prueba cargada desde BD: " + c.getName() + " - " + c.getPrice());
+
                 Button add = new Button("+");
                 add.getStyleClass().add("add-button");
                 final String testName = c.getName();
@@ -64,7 +74,10 @@ public class ClinicalLabController {
                 testsGrid.add(card, col, row);
 
                 col++;
-                if (col >= 3) { col = 0; row++; }
+                if (col >= 3) {
+                    col = 0;
+                    row++;
+                }
             }
         }
 
@@ -80,7 +93,8 @@ public class ClinicalLabController {
         subtotal += price;
         updateTotals();
 
-        if (summaryScroll == null) return;
+        if (summaryScroll == null)
+            return;
         if (!(summaryScroll.getContent() instanceof VBox)) {
             summaryScroll.setContent(new VBox(8));
         }
@@ -91,7 +105,9 @@ public class ClinicalLabController {
 
     private void updateTotals() {
         String s = String.format("$%.2f", subtotal);
-        if (subtotalLabel != null) subtotalLabel.setText(s);
-        if (totalAmount != null) totalAmount.setText(s);
+        if (subtotalLabel != null)
+            subtotalLabel.setText(s);
+        if (totalAmount != null)
+            totalAmount.setText(s);
     }
 }
