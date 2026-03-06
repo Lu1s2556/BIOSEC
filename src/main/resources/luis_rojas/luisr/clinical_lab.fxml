@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -36,7 +38,7 @@
                   <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
                </VBox.margin>
             </HBox>
-            <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+            <VBox id="barra_izquierda" spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
                   <Button fx:id="navDashboard" maxWidth="1.1754943508222875E308" mnemonicParsing="false" styleClass="nav-button" text="Dashboard" />
                   <Button fx:id="navPresupuestos" maxWidth="1.1754943508222875E308" mnemonicParsing="false" styleClass="nav-button" text="Presupuestos" />
@@ -60,8 +62,7 @@
                <children>
                   <VBox>
                      <children>
-                        <Label styleClass="header-title" text="Constructor de Presupuestos" />
-                        <Label styleClass="header-subtitle" text="Seleccione los exámenes para el paciente." />
+                        <Label alignment="CENTER" prefHeight="48.0" prefWidth="754.0" styleClass="header-title" text="Constructor de Presupuestos" textAlignment="RIGHT" />
                      </children>
                   </VBox>
                </children>
@@ -104,7 +105,7 @@
                         </ScrollPane>
                      </children>
                   </VBox>
-                  <VBox prefWidth="350.0" styleClass="summary-panel">
+                  <VBox prefHeight="503.0" prefWidth="396.0" styleClass="summary-panel">
                      <children>
                         <Label styleClass="summary-title" text="Resumen de Cotización" />
                         <Separator />
@@ -116,8 +117,8 @@
                               <TextField fx:id="patientField" promptText="Nombre del Paciente" styleClass="patient-input" />
                               <javafx.scene.control.TableView fx:id="summaryTable" VBox.vgrow="ALWAYS">
                                 <columns>
-                                  <javafx.scene.control.TableColumn fx:id="nameColumn" text="Examen" prefWidth="200" />
-                                  <javafx.scene.control.TableColumn fx:id="priceColumn" text="Precio" prefWidth="100" />
+                                  <javafx.scene.control.TableColumn fx:id="nameColumn" prefWidth="200" text="Examen" />
+                                  <javafx.scene.control.TableColumn fx:id="priceColumn" prefWidth="100" text="Precio" />
                                 </columns>
                                 <columnResizePolicy>
                                    <javafx.scene.control.TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

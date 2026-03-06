@@ -17,8 +17,10 @@ public class Launcher extends Application {
         }
         stage.setTitle("LabFlow - Presupuestos");
         stage.setScene(scene);
-        stage.setWidth(1080);
-        stage.setHeight(720);
+        stage.setWidth(1360);
+        stage.setHeight(768);
+        stage.setMinWidth(1280);
+        stage.setMinHeight(720);
         stage.show();
     }
 
